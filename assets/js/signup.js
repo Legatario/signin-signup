@@ -85,7 +85,9 @@ function cadastrar(){
     {
       nomeCad: nome.value,
       userCad: usuario.value,
-      senhaCad: senha.value
+      senhaCad: senha.value,
+      login: '',
+      logout: ''
     }
     )
     

@@ -19,29 +19,41 @@ function entrar(){
   
   let msgError = document.querySelector('#msgError')
   let listaUser = []
+
+  dayName = new Array ("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado");
+  monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho","agosto","setembro", "outubro", "novembro", "dezembro");
+  now = new Date
   
   let userValid = {
-    nome: '',
-    user: '',
-    senha: ''
+    nome: null,
+    user: null,
+    senha: null,
+    login: '',
+    logout: ''
   }
   
   listaUser = JSON.parse(localStorage.getItem('listaUser'))
   
   listaUser?.forEach((item) => {
     if(usuario.value == item.userCad && senha.value == item.senhaCad){
-       
+
+      item.login = dayName[now.getDay() ] + ", " + now.getDate () + " de " + monName[now.getMonth()] + " de "  + now.getFullYear() + " as " + now.getHours() + ":" + minutes()
+
+      localStorage.setItem('listaUser', JSON.stringify(listaUser))
+
       userValid = {
          nome: item.nomeCad,
          user: item.userCad,
-         senha: item.senhaCad
+         senha: item.senhaCad,
+         login: item.login,
+         logout: item.logout
        }
       
     }
   })
    
   if(usuario.value == userValid.user && senha.value == userValid.senha){
-    window.location.href = 'http://26.244.155.47:8080'
+    window.location.href = '../../index.html'
     
     let mathRandom = Math.random().toString(16).substr(2)
     let token = mathRandom + mathRandom
@@ -58,6 +70,15 @@ function entrar(){
     usuario.focus()
   }
   
+}
+
+function minutes(){
+  if(now.getMinutes() <=9){
+    return "0"+now.getMinutes()
+  }
+  else{
+    return now.getMinutes()
+  }
 }
 
 
