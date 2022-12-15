@@ -3,15 +3,20 @@ if (localStorage.getItem("token") == null) {
   window.location.href = "./assets/html/signin.html";
 }
 
+const naviMenu = document.querySelector('#naviMenu')
+
 const userLogado = JSON.parse(localStorage.getItem("userLogado"));
 
 const logado = document.querySelector("#logado");
 logado.innerHTML = `Olá ${userLogado.nome}`;
 
-document.write (`<h1> Ultima atualização ${userLogado.login}</h1>`)
+const infologin = document.querySelector("#infologin");
+infologin.innerHTML = `Ultima atualização ${userLogado.login}`;
+
 
 if(userLogado.logout){
-  document.write (`<h2> Ultima atualização ${userLogado.logout}</h2>`)
+  const infologout = document.querySelector("#infologout");
+  infologout.innerHTML = `Ultima vez que deslogou ${userLogado.logout}`;
 }
 
 function sair() {
@@ -26,8 +31,6 @@ function logoutUpdate(){
   monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho","agosto","setembro", "outubro", "novembro", "dezembro");
   now = new Date
   listaUser = JSON.parse(localStorage.getItem('listaUser'))
-  console.log(userLogado)
-  console.log(listaUser)
   
   listaUser.forEach((item) => {
     if(userLogado.user == item.userCad && userLogado.senha == item.senhaCad){
@@ -46,3 +49,22 @@ function minutes(){
     return now.getMinutes()
   }
 }
+
+function toggleMenu(){
+  naviMenu.classList.toggle("active")
+}
+
+
+// OSM mapa
+
+var map = L.map('map').setView([ -23.45977527464902, -46.67661666870117], 14);
+
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 16,
+    minZoom: 2 
+});
+
+osm.addTo(map);
+
+// fim OSM map
